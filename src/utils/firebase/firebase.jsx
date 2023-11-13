@@ -4,6 +4,7 @@ import { getAuth, signInWithPopup } from "firebase/auth";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "firebase/auth"; // Fix the import here
 import {
   getFirestore,
@@ -101,3 +102,21 @@ export const createAuthUserWithEmailAndPassword = async ({
     throw error;
   }
 };
+
+
+export const signInAuthUserWithEmailAndPassword = async ({ email, password, ...rest }) => {
+  if (!email || !password) return;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+    // Now, you can call createUserDocumentFromAuth if needed
+    await createUserDocumentFromAuth(userCredential.user, { ...rest });
+
+    return userCredential; // Return the UserCredential object
+  } catch (error) {
+    console.error("Error signing in:", error.message);
+    throw error;
+  }
+};
+

@@ -1,4 +1,4 @@
-import './form-input.style.scss'
+import './form-input.styles.scss'
 function FormInput({ label, ...otherProps }) {
   return (
     <div className="group">
