@@ -35,7 +35,11 @@ function Signin() {
       console.log(response)
       restFormFields()
       
-    } catch (err) {}
+    } catch (error) {
+      if (error.code == 'auth/invalid-login-credentials'){
+        alert('Wrong credentials')
+      }
+    }
   };
 
   const handelChange = (event) => {
@@ -65,7 +69,7 @@ function Signin() {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={SignInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={SignInWithGoogle}>
             Sign In With Google
           </Button>
         </div>
