@@ -4,7 +4,9 @@ import { getAuth, signInWithPopup } from "firebase/auth";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth"; // Fix the import here
 import {
   getFirestore,
@@ -95,7 +97,10 @@ export const createAuthUserWithEmailAndPassword = async ({
     console.log("User created successfully:", user);
 
     // Now, you can call createUserDocumentFromAuth if needed
-    const userDocRef = await createUserDocumentFromAuth({...user, displayName}, { ...rest });
+    const userDocRef = await createUserDocumentFromAuth(
+      { ...user, displayName },
+      { ...rest }
+    );
     return userDocRef;
   } catch (error) {
     console.error("Error creating user:", error.message);
@@ -103,12 +108,19 @@ export const createAuthUserWithEmailAndPassword = async ({
   }
 };
 
-
-export const signInAuthUserWithEmailAndPassword = async ({ email, password, ...rest }) => {
+export const signInAuthUserWithEmailAndPassword = async ({
+  email,
+  password,
+  ...rest
+}) => {
   if (!email || !password) return;
 
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     // Now, you can call createUserDocumentFromAuth if needed
     await createUserDocumentFromAuth(userCredential.user, { ...rest });
@@ -120,3 +132,8 @@ export const signInAuthUserWithEmailAndPassword = async ({ email, password, ...r
   }
 };
 
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListner = (callback) =>
+  onAuthStateChanged(auth, callback);
+ 

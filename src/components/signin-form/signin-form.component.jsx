@@ -1,13 +1,16 @@
-import { useState } from "react";
+import {  useState } from "react";
 import {
   createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase";
 
+
+
 import FormInput from "../form-input/form-input.component";
 import "./signin-form.styles.scss";
 import Button from "../button/button.component";
+
 
 const defaultFormField = {
   email: "",
@@ -17,24 +20,19 @@ const defaultFormField = {
 function Signin() {
   const [formFields, setFormFields] = useState(defaultFormField);
   const { email, password } = formFields;
-
   const restFormFields = () => {
     setFormFields(defaultFormField)
   }
 
   const SignInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword({ email, password });
-
-      console.log(response)
+      await signInAuthUserWithEmailAndPassword({ email, password });
       restFormFields()
-      
     } catch (error) {
       if (error.code == 'auth/invalid-login-credentials'){
         alert('Wrong credentials')
