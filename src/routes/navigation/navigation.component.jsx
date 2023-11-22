@@ -4,6 +4,7 @@ import CrownLogo from "../../assets/crown.svg";
 
 import CardIcon from "../../components/card-icon/card-icon.component";
 import { UserContext } from "../../contexts/user.context";
+import { CartContext } from "../../contexts/card.context";
 import "./navigation.styles.scss";
 
 import { signOutUser } from "../../utils/firebase/firebase";
@@ -11,6 +12,7 @@ import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component
 
 function Navigation() {
   const { currentUser } = useContext(UserContext);
+  const { isCardOpen } = useContext(CartContext);
 
   return (
     <>
@@ -37,7 +39,7 @@ function Navigation() {
           </Link> */}
           <CardIcon />
         </div>
-        <CartDropDown/>
+        {isCardOpen && <CartDropDown/>}
 
       </div>
       <Outlet />
