@@ -1,5 +1,5 @@
 // card.context.jsx
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -20,19 +20,21 @@ const addCartItem = (cartItems, productToAdd) => {
 export const CartContext = createContext({
   isCardOpen: false,
   setIsCardOpen: () => {},
-  cartItems: [], // <-- Corrected the property name
+  cartItems: [], 
   addItemTocard: () => {},
+  cartCount: 0
 });
 
 export const CartProvider = ({ children }) => {
   const [isCardOpen, setIsCardOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]); // <-- Corrected the variable name
+  const [cartItems, setCartItems] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
 
   const addItemTocard = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
-  const value = { isCardOpen, setIsCardOpen, addItemTocard, cartItems }; // <-- Corrected the property name
+  const value = { isCardOpen, setIsCardOpen, addItemTocard, cartItems };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
