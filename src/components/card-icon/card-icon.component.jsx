@@ -7,12 +7,12 @@ import { CartContext } from "../../contexts/card.context";
 
 
 const CardIcon = () => {
-    const {isCardOpen ,setIsCardOpen} = useContext(CartContext);
+    const {isCardOpen ,setIsCardOpen, cartCount} = useContext(CartContext);
     const toggelIsCardOpen = () =>setIsCardOpen(!isCardOpen)
   return (
     <div className="cart-icon-container" onClick={toggelIsCardOpen}>
       <BsBag className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{cartCount}</span>
     </div>
   );
 };
