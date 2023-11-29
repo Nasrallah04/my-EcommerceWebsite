@@ -4,24 +4,25 @@ import {getCategoriesAndDocuments} from '../utils/firebase/firebase'
 
 // import SHOP_DATA from "../shop-data.js";
 
-export const ProductsContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
-export const ProductProvider = ({ children }) => {
+export const CategoriesProvider = ({ children }) => {
   // You can import the shop data from the external file
 
-  const [products, setProducts] = useState([]);
+  const [categoriesMap, setCategoriesMap] = useState({});
   
   useEffect(() => {
     const getCategorieMap = async () => {
       const categorieMap = await getCategoriesAndDocuments()
       console.log(categorieMap)
+      setCategoriesMap(categorieMap)
     }
     getCategorieMap()
   }
   , []); 
   
-  const value = { products};
-  return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>;
+  const value = { categoriesMap};
+  return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>;
 };
