@@ -9,7 +9,7 @@ import {
 
 import FormInput from "../form-input/form-input.component";
 import "./signin-form.styles.scss";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPES_CLASSES } from "../button/button.component";
 
 
 const defaultFormField = {
@@ -67,13 +67,13 @@ function Signin() {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button type="button" buttonType="google" onClick={SignInWithGoogle}>
+          <Button type="button" buttonType={BUTTON_TYPES_CLASSES.google} onClick={SignInWithGoogle}>
             Sign In With Google
           </Button>
         </div>
       </form>
     </div>
-  );
+  ); 
 }
 
 export default Signin;
