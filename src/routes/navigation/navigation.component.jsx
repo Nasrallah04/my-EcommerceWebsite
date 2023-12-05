@@ -5,10 +5,11 @@ import CrownLogo from "../../assets/crown.svg";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/card.context";
-import "./navigation.styles.scss";
+import "./navigation.styles.jsx";
 
 import { signOutUser } from "../../utils/firebase/firebase";
 import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component";
+import { NavigationContainer, LogoContainer, NavLinksContainer, NavLink } from "./navigation.styles.jsx";
 
 function Navigation() {
   const { currentUser } = useContext(UserContext);
@@ -16,32 +17,29 @@ function Navigation() {
 
   return (
     <>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <img src={CrownLogo} className="logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to="/shop">
             SHOP
-          </Link>
+          </NavLink>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as='span' onClick={signOutUser}>
               {""}
               SIGN OUT {""}
-            </span>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
+            <NavLink to="/auth">
               SIGNIN
-            </Link>
+            </NavLink>
           )}
-          {/* <Link className="nav-link" to="/contact">
-            CONTACT
-          </Link> */}
           <CartIcon />
-        </div>
+        </NavLinksContainer>
         {isCardOpen && <CartDropDown/>}
 
-      </div>
+        </NavigationContainer>
       <Outlet />
     </>
   );
