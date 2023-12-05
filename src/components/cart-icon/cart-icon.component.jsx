@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import "./card-icon.styles.scss";
+import "./cart-icon.styles.scss";
 import { BsBag } from "react-icons/bs";
 
 import { CartContext } from "../../contexts/card.context";
 
 
 
-const CardIcon = () => {
+const CartIcon = () => {
     const {isCardOpen ,setIsCardOpen, cartCount} = useContext(CartContext);
     const toggelIsCardOpen = () =>setIsCardOpen(!isCardOpen)
   return (
@@ -17,4 +17,4 @@ const CardIcon = () => {
   );
 };
 
-export default CardIcon;
+export default CartIcon;
