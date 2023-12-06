@@ -8,7 +8,7 @@ import {
 
 
 import FormInput from "../form-input/form-input.component";
-import "./signin-form.styles.scss";
+import { SignInContainer, ButtonsContainer } from './signin-form.styles';
 import Button, { BUTTON_TYPES_CLASSES } from "../button/button.component";
 
 
@@ -45,7 +45,7 @@ function Signin() {
     setFormFields({ ...formFields, [name]: value });
   };
   return (
-    <div className="sign-up-container">
+    <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -65,14 +65,14 @@ function Signin() {
           value={password}
           required
         />
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Sign In</Button>
           <Button type="button" buttonType={BUTTON_TYPES_CLASSES.google} onClick={SignInWithGoogle}>
             Sign In With Google
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   ); 
 }
 
