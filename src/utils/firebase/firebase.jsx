@@ -1,3 +1,4 @@
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
@@ -47,17 +48,35 @@ export const signInWithGooglePopup = () =>
 
 export const db = getFirestore();
 
+// export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
+//   const collectionRef = collection(db, collectionKey);
+//   const batch = writeBatch(db);
+
+//   objectToAdd.forEach((object) => {
+//     const docRef = doc(collectionRef, object.title.toLowerCase());
+//     batch.set(docRef, object);
+//   });
+
+//   await batch.commit();
+//   console.log("done");
+// };
+
+
 export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
-  const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
+  try {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
 
-  objectToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+    objectToAdd.forEach((object) => {
+      const docRef = doc(collectionRef, object.title.toLowerCase());
+      batch.set(docRef, object);
+    });
 
-  await batch.commit();
-  console.log("done");
+    await batch.commit();
+    console.log("Collection added successfully");
+  } catch (error) {
+    console.error("Error adding collection to Firestore:", error.message);
+  }
 };
 
 export const getCategoriesAndDocuments = async () => {

@@ -1,39 +1,45 @@
 import {DirectoryContainer} from './directory.style.jsx'
 import DirectoryItem from '../directory-item/directory-item.component';
 
+import one from '../../assets/home-images/one.png'
+import two from '../../assets/home-images/two.png'
+import three from '../../assets/home-images/three.png'
+import four from '../../assets/home-images/four.png'
+import five from '../../assets/home-images/five.png'
+
 const categories = [
   {
     "id": 1,
-    "title": "hats",
-    "imageUrl": "https://i.ibb.co/cvpntL1/hats.png",
-    "route": "shop/hats"
+    "title": "Self Help",
+    "imageUrl": one,
+    "route": "shop/self%20help"
   },
   {
     "id": 2,
-    "title": "jackets",
-    "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png",
-    "route": "shop/jackets"
+    "title": "business",
+    "imageUrl": two,
+    "route": "shop/business"
 
   },
   {
     "id": 3,
-    "title": "sneakers",
-    "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png",
-    "route": "shop/sneakers"
+    "title": "Adventure",
+    "imageUrl": four,
+    "route": "shop/adventure"
 
   },
   {
     "id": 4,
-    "title": "womens",
-    "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png",
-    "route": "shop/womens"
+    "title": "Romance",
+    "imageUrl": three,
+    "route": "shop/romance"
 
   },
   {
     "id": 5,
-    "title": "mens",
-    "imageUrl": "https://i.ibb.co/R70vBrQ/men.png",
-    "route": "shop/mens"
+    "title": "Tech & IT",
+    "imageUrl": five,
+    "route": "shop/tech%20&%20it"
 
   }
 ]
