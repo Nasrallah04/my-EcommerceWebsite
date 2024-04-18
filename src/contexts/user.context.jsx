@@ -8,6 +8,7 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
+// Start working with Reducers
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
