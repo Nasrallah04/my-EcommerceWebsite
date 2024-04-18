@@ -39,6 +39,29 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 
 const clearCartItem = (cartItems, productItemToClear) => cartItems.filter((cartItem) => cartItem.id !== productItemToClear.id);
 
+export const INITIAL_STATE = {
+  isCardOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal:0
+};
+
+
+
+const CartReducer = (state, action) => {
+  const {type, payload} = action;
+  switch (key) {
+    case value:
+      
+      break;
+  
+    default:
+      throw new Error(`Unhandled type of: ${type} in CartReducer`);
+  }
+
+}
+
+
 export const CartContext = createContext({
   isCardOpen: false,
   setIsCardOpen: () => {},
@@ -69,6 +92,21 @@ export const CartProvider = ({ children }) => {
     );
     setCartTotal(newCartTotal);
   }, [cartItems]);
+
+  const updateCartItemsReducer = (newCartItems) {
+    /*
+      generate newCartTotal
+
+      generate newCartCount
+
+      
+      dispatch new action with payload{
+        newCartItems,
+        newCartCount,
+        newCartTotal
+      }
+    */
+  }
 
   const addItemTocard = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
