@@ -39,22 +39,30 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 const clearCartItem = (cartItems, productItemToClear) => cartItems.filter((cartItem) => cartItem.id !== productItemToClear.id);
 
 export const INITIAL_STATE = {
-  isCardOpen: true,
+  isCartOpen: false,
   cartItems: [],
   cartCount: 0,
   cartTotal:0
 };
 
-
+export const CART_ACTION_TYPES = {
+  SET_IS_CART_OPEN: "SET_IS_CART_OPEN",
+  SET_CART_ITEMS: "SET_CART_ITEMS",
+};
 
 const cartReducer = (state, action) => {
   const {type, payload} = action;
   switch (type) {
-    case 'SET_CART_ITEMS':
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
       return{
         ...state,
         ...payload
       }
+      case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+        return{
+          ...state,
+          isCartOpen: payload
+        }  
       
     default:
       throw new Error(`Unhandled type of: ${type} in CartReducer`);
@@ -66,8 +74,8 @@ const cartReducer = (state, action) => {
 
 
 export const CartContext = createContext({
-  isCardOpen: false,
-  setIsCardOpen: () => {},
+  isCartOpen: false,
+  setIsCartOpen: () => {},
   cartItems: [],
   addItemTocard: () => {},
   removeItemToCart: () => {},
@@ -78,7 +86,7 @@ export const CartContext = createContext({
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
-  const {isCardOpen, cartItems, cartCount, cartTotal} = state;
+  const {isCartOpen, cartItems, cartCount, cartTotal} = state;
   const updateCartItemsReducer = (newCartItems) => {
       // generate newCartTotal
       const newCartTotal = newCartItems.reduce((total, cartItem) => 
@@ -113,12 +121,14 @@ export const CartProvider = ({ children }) => {
     const newCartItems = clearCartItem(cartItems, productItemToClear);
     updateCartItemsReducer(newCartItems)
   };
-  
 
+  const setIsCartOpen = (bool) => {
+    dispatch({ type: CART_ACTION_TYPES.SET_IS_CART_OPEN , payload: bool});
+  }
 
   const value = {
-    isCardOpen,
-    setIsCardOpen: () => {},
+    isCartOpen,
+    setIsCartOpen,
     addItemTocard,
     removeItemToCart,
     clearItemFromcard,

@@ -13,7 +13,7 @@ import { NavigationContainer, LogoContainer, NavLinksContainer, NavLink } from "
 
 function Navigation() {
   const { currentUser } = useContext(UserContext);
-  const { isCardOpen } = useContext(CartContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -37,7 +37,7 @@ function Navigation() {
           )}
           <CartIcon />
         </NavLinksContainer>
-        {isCardOpen && <CartDropDown/>}
+        {isCartOpen && <CartDropDown/>}
 
         </NavigationContainer>
       <Outlet />
