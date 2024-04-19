@@ -1,5 +1,6 @@
 // card.context.jsx
-import { createContext, useReducer, useState, useEffect } from "react";
+import { createContext, useReducer} from "react";
+import createAction from "../utils/reducer/reducer.utils";
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -97,14 +98,7 @@ export const CartProvider = ({ children }) => {
       total + cartItem.quantity, 0
       );
       // dispatch new action with payload{newCartItems,newCartCount,newCartTotal}
-      dispatch({
-        type: 'SET_CART_ITEMS',
-        payload: {
-          cartItems: newCartItems,
-          cartCount: newCartCount,
-          cartTotal: newCartTotal
-        }
-      })
+      dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {cartItems: newCartItems, cartCount: newCartCount, cartTotal: newCartTotal}));
   }
 
   const addItemTocard = (productToAdd) => {
@@ -123,7 +117,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const setIsCartOpen = (bool) => {
-    dispatch({ type: CART_ACTION_TYPES.SET_IS_CART_OPEN , payload: bool});
+    dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool))
   }
 
   const value = {
