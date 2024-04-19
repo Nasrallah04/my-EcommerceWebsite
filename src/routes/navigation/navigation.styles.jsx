@@ -15,7 +15,7 @@ export const LogoContainer = styled(Link)`
   padding-top: 10px;
 `;
 
-export const NavLinksContainer = styled(Link)`
+export const NavLinksContainer = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
