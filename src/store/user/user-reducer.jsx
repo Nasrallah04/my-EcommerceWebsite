@@ -17,5 +17,6 @@ export const USER_ACTION_TYPES = {
                currentUser: payload };
           default: 
           return state;
+          // everysingle action needs to return a state if it does not match the type
       }
       };
