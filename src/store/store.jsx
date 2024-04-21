@@ -10,6 +10,6 @@ const composedEnhancers = compose(applyMiddleware(...middleware));
 
 // Create the store
 // it takes three arguments: the root reducer, the initial state, and the enhancer
-export const store = createStore(rootReducer, composedEnhancers);
+export const store = createStore(rootReducer,undefined, composedEnhancers);
 
 //root reducer
