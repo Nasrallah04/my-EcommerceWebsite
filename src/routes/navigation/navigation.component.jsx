@@ -19,6 +19,7 @@ function Navigation() {
   const currentUser = useSelector(currentUserSelctor);
   const { isCartOpen } = useContext(CartContext);
 
+  
   return (
     <>
       <NavigationContainer>
