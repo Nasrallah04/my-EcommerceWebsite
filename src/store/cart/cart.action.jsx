@@ -41,17 +41,19 @@ const clearCartItem = (cartItems, productItemToClear) => cartItems.filter((cartI
 
 export const addItemTocard = (cartItems , productToAdd) => {
     const newCartItems = addCartItem(cartItems, productToAdd);
-    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {cartItems: newCartItems})
+    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
   };
 
-export const removeItemToCart = (cartItems , cartItemToRemove) => {
+export const removeItemFromCart = (cartItems , cartItemToRemove) => {
     const newCartItems = removeCartItem(cartItems, cartItemToRemove);
-    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {cartItems: newCartItems})
+    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
+
   };
 
 export const clearItemFromcard = (cartItems , productItemToClear) => {
     const newCartItems = clearCartItem(cartItems, productItemToClear);
-    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {cartItems: newCartItems})
+    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
+
   };
 
-export const setIsCartOpen = createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN);
+export const setIsCartOpen = (boolean) =>  createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean);

@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/card.context";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { addItemTocard, removeItemFromCart, clearItemFromcard } from "../../store/cart/cart.action";
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -9,13 +10,13 @@ import {
   RemoveButtonContainer,
 } from "./choukout-item.styles";
 const CheckoutItem = ({ cartItem }) => {
-  const { addItemTocard, removeItemToCart, clearItemFromcard } =
-    useContext(CartContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
   //handlers
-  const addItem = () => addItemTocard(cartItem);
-  const subItem = () => removeItemToCart(cartItem);
-  const clearItemHandler = () => clearItemFromcard(cartItem);
+  const addItem = () => dispatch(addItemTocard(cartItems,cartItem));
+  const subItem = () => dispatch(removeItemFromCart(cartItems,cartItem));
+  const clearItemHandler = () => dispatch(clearItemFromcard(cartItems,cartItem));
 
   const { imageUrl, name, quantity, price } = cartItem;
   return (
