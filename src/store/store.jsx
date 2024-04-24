@@ -14,7 +14,13 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const middlewares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean); // filter out the falsy values
-const composedEnhancers = compose(applyMiddleware(...middlewares));
+
+// Compose the enhancers
+// The compose function is used to combine multiple store enhancers
+// if we're on the browser and the redux devtools extension is installed, we'll use it
+// otherwise, we'll use the default compose function
+const composeEnhancer = (process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
 // Create the store
 // it takes three arguments: the root reducer, the initial state, and the enhancer
