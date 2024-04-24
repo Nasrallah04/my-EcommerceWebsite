@@ -3,6 +3,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger';
+import {thunk} from "redux-thunk"
 import rootReducer from './root-reducer';
 
 
@@ -13,7 +14,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const middlewares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean); // filter out the falsy values
+const middlewares = [process.env.NODE_ENV !== 'production' && logger,thunk].filter(Boolean); // filter out the falsy values
 
 // Compose the enhancers
 // The compose function is used to combine multiple store enhancers
