@@ -20,4 +20,9 @@ export const categoriesMapSelctor = createSelector(
     }, {})
   
 )
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categoriesSlice) =>categoriesSlice.isLoading
+)
 // here where you do the transformation logic to get the data in the format you want
