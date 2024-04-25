@@ -10,7 +10,7 @@ import rootReducer from './root-reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['cart'] // cart will not be persisted because we already have the spinner
+    whitelist: ['cart'] // only cart will be persisted
   }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
