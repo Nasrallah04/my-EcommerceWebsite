@@ -3,7 +3,11 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger';
-import {thunk} from "redux-thunk"
+// import {thunk} from "redux-thunk"
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './root-saga';
+
+
 import rootReducer from './root-reducer';
 
 
@@ -15,7 +19,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const middlewares = [process.env.NODE_ENV !== 'production' && logger,thunk].filter(Boolean); // filter out the falsy values
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [process.env.NODE_ENV !== 'production' && logger,thunk,sagaMiddleware].filter(Boolean); // filter out the falsy values
 
 // Compose the enhancers
 // The compose function is used to combine multiple store enhancers
@@ -27,5 +32,6 @@ const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 // Create the store
 // it takes three arguments: the root reducer, the initial state, and the enhancer
 export const store = createStore(persistedReducer,undefined, composedEnhancers);
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);  // used to create a persistor object
