@@ -179,3 +179,15 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+
+// Get the currently signed-in user
+// This function returns a promise that resolves with the currently signed-in user (or null)
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+}
