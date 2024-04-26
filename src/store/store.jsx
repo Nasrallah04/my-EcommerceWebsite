@@ -20,7 +20,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [process.env.NODE_ENV !== 'production' && logger,thunk,sagaMiddleware].filter(Boolean); // filter out the falsy values
+const middlewares = [process.env.NODE_ENV !== 'production' && logger,sagaMiddleware].filter(Boolean); // filter out the falsy values
 
 // Compose the enhancers
 // The compose function is used to combine multiple store enhancers
