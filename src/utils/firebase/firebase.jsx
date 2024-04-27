@@ -115,11 +115,13 @@ export const createUserDocumentFromAuth = async (
         );
       }
     }
+    
+    return userSnapshot; // <-- Moved inside the try block
+    
   } catch (error) {
     console.error("Error creating or accessing user document:", error.message);
   }
 
-  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async ({

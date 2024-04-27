@@ -8,10 +8,10 @@ export function* getSnapShotFromUserAuth (userAuth, additionalDetails) {
         const userSnapshot = yield call(createUserDocumentFromAuth, userAuth, additionalDetails)
         // this is only for firebase because in order to have the id we need to call the snapshot.id
         yield put(signInSuccess({id: userSnapshot.id, ...userSnapshot.data()}))
-        // console.log(userSnapshot.data())
     }
     catch (error) {
         yield put(signInFailed(error))
+        console.log('error', error)
     }
 } 
 
@@ -19,7 +19,7 @@ export function* isUserAuthenticated() {
     try {
         const userAuth = yield call(getCurrentUser)
         if (!userAuth) return;
-        yield put(getSnapShotFromUserAuth)
+        yield call(getSnapShotFromUserAuth, userAuth)
     } 
     catch (error) {
         yield put(signInFailed(error))
@@ -27,11 +27,11 @@ export function* isUserAuthenticated() {
 }
 
 
-export function* onCheckUserSession() {
+export function* checkUserSession() {
     yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated)
 }
 
 
 export function* userSaga (){
-    yield all([call(onCheckUserSession)])
+    yield all([call(checkUserSession)])
 }

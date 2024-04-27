@@ -1,6 +1,7 @@
 import { all, call } from "redux-saga/effects";
-import { onFetchCategories } from "./categories/categorie.saga"
+import { categoriesSaga } from "./categories/categorie.saga"
+import {userSaga} from "./user/user.saga"
 
 export default function* rootSaga() {
-    yield all([call(onFetchCategories)]);
+    yield all([call(categoriesSaga), call(userSaga)]);
 }
