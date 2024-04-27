@@ -119,7 +119,7 @@ export const createUserDocumentFromAuth = async (
     console.error("Error creating or accessing user document:", error.message);
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async ({
