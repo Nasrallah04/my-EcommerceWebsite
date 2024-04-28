@@ -17,6 +17,7 @@ export const checkUserSession = () => {
   return createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
 }
 
+// Sign In
 export const googleSignInStart = () => {
   return createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START)
 }
@@ -31,4 +32,17 @@ export const signInSuccess = (user) => {
 
 export const signInFailed = (error) => {
    return createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error)
+}
+
+// Sign Up
+export const signUpStart = (email, password, displayName) => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_START, {email, password, displayName})
+}
+
+export const signUpSuccess = (userAuth, additionalInformation) => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth, additionalInformation})
+}
+
+export const signUnFailed = (error) => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error)
 }
