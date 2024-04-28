@@ -48,19 +48,6 @@ export const signInWithGooglePopup = () =>
 
 export const db = getFirestore();
 
-// export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
-//   const collectionRef = collection(db, collectionKey);
-//   const batch = writeBatch(db);
-
-//   objectToAdd.forEach((object) => {
-//     const docRef = doc(collectionRef, object.title.toLowerCase());
-//     batch.set(docRef, object);
-//   });
-
-//   await batch.commit();
-//   console.log("done");
-// };
-
 
 export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
   try {
