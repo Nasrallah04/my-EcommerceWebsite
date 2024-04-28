@@ -1,13 +1,6 @@
 import {  useState } from "react";
 import { useDispatch } from 'react-redux';
-import {googleSignInStart} from '../../store/user/user.action';
-import {
-  createUserDocumentFromAuth,
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword
-} from "../../utils/firebase/firebase";
-
-
+import {emailSignInStart, googleSignInStart} from '../../store/user/user.action';
 
 import FormInput from "../form-input/form-input.component";
 import { SignInContainer, ButtonsContainer } from './signin-form.styles';
@@ -34,7 +27,7 @@ function Signin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInAuthUserWithEmailAndPassword({ email, password });
+      dispatch(emailSignInStart(email, password));
       restFormFields()
     } catch (error) {
       if (error.code == 'auth/invalid-login-credentials'){
