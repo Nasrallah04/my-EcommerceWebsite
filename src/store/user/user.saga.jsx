@@ -78,7 +78,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
 
 export function* signOut() {
   try {
-   call(signOutUser)
+   yield call(signOutUser)
    yield put(signOutSuccess())
   } catch (error) {
     yield put(signOutFailed(error))
