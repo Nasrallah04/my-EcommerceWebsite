@@ -46,3 +46,17 @@ export const signUpSuccess = (userAuth, additionalInformation) => {
 export const signUnFailed = (error) => {
   return createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error)
 }
+
+// Sign Out
+
+export const signOutStart = () => {
+  return createAction(USER_ACTION_TYPES.SIGN_OUT_START)
+}
+
+export const signOutSuccess = () => {
+  return createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS)
+}
+
+export const signOutFailed = (error) => {
+  return createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error)
+}
