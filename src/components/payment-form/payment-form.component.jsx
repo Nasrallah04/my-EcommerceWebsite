@@ -9,6 +9,7 @@ const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
     const paymentHandler = async (event) => {
+        event.preventDefault();
         if (!stripe || !elements) {
             return;
         }
