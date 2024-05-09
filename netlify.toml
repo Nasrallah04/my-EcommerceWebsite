@@ -1,4 +1,0 @@
-[build]
-  command = "npm run build" # replace with your build command if different
-  publish = "build" # replace with your publish directory if different
-  functions = "netlify/functions" # specifying the directory for serverless functions
