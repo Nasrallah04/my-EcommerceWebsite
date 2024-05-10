@@ -4,7 +4,6 @@ import { selectCartTotal } from "../../store/cart/cart.selector";
 import { currentUserSelctor } from "../../store/user/user.selector";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { BUTTON_TYPES_CLASSES } from "../button/button.component";
-
 import {FormContainer, PaymentFormContainer, PaymentButton} from "./payment-form.styles.jsx";
 
 
@@ -41,7 +40,6 @@ const PaymentForm = () => {
                 },
             },
         });
-
         setIsPaymentProcessing(false);
         if (paymentResault.error) {
             console.log(paymentResault.error.message);
@@ -50,8 +48,6 @@ const PaymentForm = () => {
                 alert('Payment Succeeded');
             };
         }
-        console.log("Is Payment Processing:", isPaymentProcessing);
-
     }
     
 
