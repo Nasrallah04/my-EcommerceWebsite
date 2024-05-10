@@ -4,12 +4,12 @@ import { selectCartTotal } from "../../store/cart/cart.selector";
 import { currentUserSelctor } from "../../store/user/user.selector";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { BUTTON_TYPES_CLASSES } from "../button/button.component";
-import Button from "../button/button.component";
 
 import {FormContainer, PaymentFormContainer, PaymentButton} from "./payment-form.styles.jsx";
 
 
 const PaymentForm = () => {
+    const [isPaymentProcessing, setIsPaymentProcessing] = useState(false)
     const stripe = useStripe();
     const elements = useElements();
     const amount = useSelector(selectCartTotal)
@@ -19,6 +19,7 @@ const PaymentForm = () => {
         if (!stripe || !elements) {
             return;
         }
+        setIsPaymentProcessing(true);
         const response = await fetch('/.netlify/functions/create-payment-intent', {
             method: 'post',
             headers: {
@@ -40,6 +41,8 @@ const PaymentForm = () => {
                 },
             },
         });
+
+        setIsPaymentProcessing(false);
         if (paymentResault.error) {
             console.log(paymentResault.error.message);
         } else {
@@ -47,6 +50,8 @@ const PaymentForm = () => {
                 alert('Payment Succeeded');
             };
         }
+        console.log("Is Payment Processing:", isPaymentProcessing);
+
     }
     
 
@@ -55,7 +60,7 @@ const PaymentForm = () => {
             <FormContainer onSubmit={paymentHandler}>
                 <h2>Credit Card Payment:</h2>
                 <CardElement />
-                <PaymentButton type={BUTTON_TYPES_CLASSES.SUBMIT}>Pay Now</PaymentButton>
+                <PaymentButton isLoading={isPaymentProcessing} buttonType={BUTTON_TYPES_CLASSES.SUBMIT}>Pay Now</PaymentButton>
             </FormContainer>
         </PaymentFormContainer>
     )
