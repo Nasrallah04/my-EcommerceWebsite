@@ -1,23 +1,32 @@
 import { AnyAction } from "redux-saga";
 
-
+// intersection types
 type Aline = {
     fly: boolean
 }
 
 type Human = {
+    speak: () => void
+}
+
+type Hybrid = Aline & Human
+
+const Ilyass: Hybrid = {
+    fly: false,
     speak: () => {}
 }
 
-function isHuman(entity: Aline | Human): entity is Human {
-    return (entity as Human).speak !== undefined
+// return type of a function
+
+type myFunc = () => boolean
+
+type myReturn = ReturnType<myFunc>
+
+function check (): myReturn {
+    return true
 }
 
-const Ilyass
 
-if(isHuman(Ilyass)) {
-    Ilyass.speak()
-}
 
 
 export type ActionTypeWithPayload<T, P> = {
