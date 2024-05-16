@@ -5,6 +5,23 @@ type Machable<AC extends () => AnyAction> =AC & {
     match(action: AnyAction): action is ReturnType<AC>
 }
 
+export function withMacher<AC extends () => AnyAction & { type: string}>(actionCreator: AC): Machable<AC>;
+
+export function withMacher<AC extends (...args: any[]) => AnyAction & { type: string}>(actionCreator: AC): Machable<AC>
+
+export function withMacher(actionCreator: Function){
+    const type = actionCreator().type
+    return Object.assign( actionCreator,{
+        type,
+        match(action: AnyAction){
+            return action.type === type;
+        }
+    }
+
+    )
+}
+
+
 export type ActionTypeWithPayload<T, P> = {
     type: T,
     payload: P
