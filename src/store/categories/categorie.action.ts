@@ -1,5 +1,5 @@
 import {CATEGORIES_ACTION_TYPES, Category} from './categorie.types';
-import {createAction, ActionType, ActionTypeWithPayload} from '../../utils/reducer/reducer.utils';
+import {createAction, ActionType, ActionTypeWithPayload, withMacher} from '../../utils/reducer/reducer.utils';
 
 
 
@@ -11,15 +11,15 @@ export type FetchCategoriesFailure = ActionTypeWithPayload<CATEGORIES_ACTION_TYP
 export type CategoryAction = FetchCategoriesStart | FetchCategoriesSuccess | FetchCategoriesFailure
  
 
-export const fetchCategoriesStart = (): FetchCategoriesStart => {
+export const fetchCategoriesStart = withMacher((): FetchCategoriesStart => {
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
-}
+})
 
-export const fetchCategoriesSuccess = (categoriesArray: Category[]) : FetchCategoriesSuccess => {
+export const fetchCategoriesSuccess = withMacher((categoriesArray: Category[]) : FetchCategoriesSuccess => {
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArray)
-}
+})
 
-export const fetchCategoriesFailure = (error: Error): FetchCategoriesFailure => {
+export const fetchCategoriesFailure = withMacher((error: Error): FetchCategoriesFailure => {
    return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILURE, error)
-}
+})
 
