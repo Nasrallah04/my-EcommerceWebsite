@@ -1,11 +1,11 @@
-import { ActionType, ActionTypeWithPayload , withMacher } from '../../utils/reducer/reducer.utils';
+import { ActionTypeWithPayload , withMacher } from '../../utils/reducer/reducer.utils';
 
 import { CategoryItem } from '../categories/categorie.types';
 import { CartItem } from './cart.types';
 import { CART_ACTION_TYPES } from './cart.types';
 import {createAction} from '../../utils/reducer/reducer.utils';
 
-const addCartItem = (cartItems: CartItem[], productToAdd: CategoryItem): CartItem[] => {
+const addCartItem = (cartItems: CartItem[]= [], productToAdd: CategoryItem): CartItem[] => {
     const existingCartItem = cartItems.find(
       (cartItem) => cartItem.id === productToAdd.id
     );
@@ -21,7 +21,7 @@ const addCartItem = (cartItems: CartItem[], productToAdd: CategoryItem): CartIte
     return [...cartItems, { ...productToAdd, quantity: 1 }];
   };
   
-const removeCartItem = (cartItems: CartItem[], cartItemToRemove:CartItem): CartItem[] => {
+const removeCartItem = (cartItems: CartItem[]= [], cartItemToRemove:CartItem): CartItem[] => {
     // find the cart item to remove
     const existingCartItem = cartItems.find(
       (cartItem) => cartItem.id === cartItemToRemove.id
@@ -40,7 +40,7 @@ const removeCartItem = (cartItems: CartItem[], cartItemToRemove:CartItem): CartI
     );
   };
   
-const clearCartItem = (cartItems: CartItem[], productItemToClear: CartItem): CartItem[] => cartItems.filter((cartItem) => cartItem.id !== productItemToClear.id);
+const clearCartItem = (cartItems: CartItem[]= [], productItemToClear: CartItem): CartItem[] => cartItems.filter((cartItem) => cartItem.id !== productItemToClear.id);
   
 //Types:
 export type SetIsCartOpen = ActionTypeWithPayload<CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean>
@@ -51,17 +51,17 @@ export const setCartItems = withMacher((cartItems: CartItem[]): SetCartItems =>
   createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems)
 ) 
 
-export const addItemTocard = withMacher((cartItems: CartItem[] , productToAdd: CategoryItem) => {
+export const addItemTocard = withMacher((cartItems: CartItem[]= [] , productToAdd: CategoryItem) => {
     const newCartItems = addCartItem(cartItems, productToAdd);
     return setCartItems(newCartItems)
   });
 
-export const removeItemFromCart = withMacher((cartItems: CartItem[] , cartItemToRemove:CartItem) => {
+export const removeItemFromCart = withMacher((cartItems: CartItem[]= [] , cartItemToRemove:CartItem) => {
     const newCartItems = removeCartItem(cartItems, cartItemToRemove);
     return setCartItems(newCartItems)
   });
 
-export const clearItemFromcard = withMacher((cartItems: CartItem[] , productItemToClear:CartItem) => {
+export const clearItemFromcard = withMacher((cartItems: CartItem[]= [] , productItemToClear:CartItem) => {
     const newCartItems = clearCartItem(cartItems, productItemToClear);
     return setCartItems(newCartItems)
   });
