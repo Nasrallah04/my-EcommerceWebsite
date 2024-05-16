@@ -1,7 +1,10 @@
 import { createSelector } from 'reselect';
+
+import {CategoriesState} from './categorie.reducer'
+import { CategoryMap } from './categorie.types';
 // Memorization:
 // is the process when we cache the result of the previous value and if the input is the same we return the cached value
-const selectCategoryReducer = (state) => state.categories;
+const selectCategoryReducer = (state:any) : CategoriesState => state.categories;
 
 
 export const selectCategories = createSelector(
@@ -13,11 +16,11 @@ export const selectCategories = createSelector(
 
 export const categoriesMapSelctor = createSelector(
   [selectCategories],
-  (categories) => categories.reduce((acc, category) => {
+  (categories) : CategoryMap => categories.reduce((acc, category) => {
       const { title, items } = category;
       acc[title.toLowerCase()] = items;
       return acc;
-    }, {})
+    }, {} as CategoryMap)
   
 )
 
