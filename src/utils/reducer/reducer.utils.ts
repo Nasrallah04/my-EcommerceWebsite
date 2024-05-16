@@ -1,33 +1,9 @@
 import { AnyAction } from "redux-saga";
 
-// intersection types
-type Aline = {
-    fly: boolean
+type Machable<AC extends () => AnyAction> =AC & {
+    type: ReturnType<AC>['type'],
+    match(action: AnyAction): action is ReturnType<AC>
 }
-
-type Human = {
-    speak: () => void
-}
-
-type Hybrid = Aline & Human
-
-const Ilyass: Hybrid = {
-    fly: false,
-    speak: () => {}
-}
-
-// return type of a function
-
-type myFunc = () => boolean
-
-type myReturn = ReturnType<myFunc>
-
-function check (): myReturn {
-    return true
-}
-
-
-
 
 export type ActionTypeWithPayload<T, P> = {
     type: T,
