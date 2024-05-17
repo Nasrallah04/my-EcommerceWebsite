@@ -7,17 +7,17 @@ import {signInSuccess, signOutSuccess, signInFailed, signOutFailed, signUpFailed
 
 export type UserState = {
   readonly currentUser: UserData | null,
-  readonly isLoading: null,
-  readonly error: Error,
+  readonly isLoading: boolean,
+  readonly error: Error | null,
 }
 
 export const USER_INITIAL_STATE : UserState = {
   currentUser: null,
-  isLoading: null,
+  isLoading: false,
   error: new Error(''),
 };
 
-export const userReducer = (state = USER_INITIAL_STATE, action= {} as AnyAction) : UserState => {
+export const userReducer = (state = USER_INITIAL_STATE, action: AnyAction) : UserState => {
 
   if (signInSuccess.match(action)){
     return {...state, currentUser: action.payload}
@@ -32,5 +32,5 @@ export const userReducer = (state = USER_INITIAL_STATE, action= {} as AnyAction)
   }
 
   return state
-  //   // everysingle action needs to return a state if it does not match the type
+  // everysingle action needs to return a state if it does not match the type
   }
