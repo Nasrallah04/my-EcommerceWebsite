@@ -38,7 +38,7 @@ export const signInFailed = withMacher((error: Error): SignInFailed => {
 
 export type SignUpStart = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_START, {email: string, password: string, displayName: string}> 
 export type SignUpSuccess = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth: UserData, additionalInformation: AdditionalInformation}>
-export type SignUnFailed = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_FAILED, Error>
+export type SignUpFailed = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_FAILED, Error>
 // Sign Up
 export const signUpStart = withMacher((email: string, password: string, displayName: string): SignUpStart => {
   return createAction(USER_ACTION_TYPES.SIGN_UP_START, {email, password, displayName})
@@ -48,7 +48,7 @@ export const signUpSuccess = withMacher((userAuth: UserData, additionalInformati
   return createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth, additionalInformation})
 })
 
-export const signUnFailed = withMacher((error: Error) : SignUnFailed => {
+export const signUpFailed = withMacher((error: Error) : SignUpFailed => {
   return createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error)
 })
 

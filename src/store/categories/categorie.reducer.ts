@@ -1,6 +1,6 @@
 import { AnyAction } from "redux-saga";
 
-import { CATEGORIES_ACTION_TYPES, Category } from "./categorie.types";
+import { Category } from "./categorie.types";
 
 import {
   fetchCategoriesStart,
