@@ -9,6 +9,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver
 } from "firebase/auth";
 import {
   getFirestore,
@@ -19,10 +21,14 @@ import {
   writeBatch,
   query,
   getDocs,
+  QueryDocumentSnapshot
 } from "firebase/firestore";
+
+import { Category } from "../../store/categories/categorie.types";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -49,7 +55,11 @@ export const signInWithGooglePopup = () =>
 export const db = getFirestore();
 
 
-export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
+type ObjectToAdd = {
+  title: string
+}
+
+export const addCollectionUndDocument = async<T extends ObjectToAdd> (collectionKey: string, objectToAdd: T[]) : Promise<void> => {
   try {
     const collectionRef = collection(db, collectionKey);
     const batch = writeBatch(db);
@@ -61,22 +71,33 @@ export const addCollectionUndDocument = async (collectionKey, objectToAdd) => {
 
     await batch.commit();
     console.log("Collection added successfully");
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error adding collection to Firestore:", error.message);
   }
 };
 
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async () : Promise<Category[]> => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Category);
 };
 
+export type AdditionalInformation = {
+  displayName?: string
+}
+
+export type UserData = {
+  createdAt: Date,
+  displayName: string,
+  email: string,
+
+}
+
 export const createUserDocumentFromAuth = async (
-  userAuth,
-  additionalInformation = {}
-) => {
+  userAuth: User,
+  additionalInformation : AdditionalInformation = {}
+) : Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
 
@@ -103,9 +124,9 @@ export const createUserDocumentFromAuth = async (
       }
     }
     
-    return userSnapshot; // <-- Moved inside the try block
+    return userSnapshot as QueryDocumentSnapshot<UserData>; 
     
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating or accessing user document:", error.message);
   }
 
@@ -116,6 +137,11 @@ export const createAuthUserWithEmailAndPassword = async ({
   password,
   displayName,
   ...rest
+}: {
+  email: string;
+  password: string;
+  displayName: string;
+  [key: string]: any;
 }) => {
   if (!email || !password) return;
 
@@ -134,7 +160,7 @@ export const createAuthUserWithEmailAndPassword = async ({
       { ...rest }
     );
     return userDocRef;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating user:", error.message);
     throw error;
   }
@@ -144,6 +170,11 @@ export const signInAuthUserWithEmailAndPassword = async ({
   email,
   password,
   ...rest
+}: {
+  email: string,
+  password: string,
+  // [key: string]: any;
+
 }) => {
   if (!email || !password) return;
 
@@ -158,7 +189,7 @@ export const signInAuthUserWithEmailAndPassword = async ({
     await createUserDocumentFromAuth(userCredential.user, { ...rest });
 
     return userCredential; // Return the UserCredential object
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error signing in:", error.message);
     throw error;
   }
@@ -166,13 +197,13 @@ export const signInAuthUserWithEmailAndPassword = async ({
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListner = (callback) =>
+export const onAuthStateChangedListner = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback);
 
 
 // Get the currently signed-in user
 // This function returns a promise that resolves with the currently signed-in user (or null)
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
       unsubscribe();
