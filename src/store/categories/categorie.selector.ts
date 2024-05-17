@@ -2,9 +2,10 @@ import { createSelector } from 'reselect';
 
 import {CategoriesState} from './categorie.reducer'
 import { CategoryMap } from './categorie.types';
+import { RootState } from '../store';
 // Memorization:
 // is the process when we cache the result of the previous value and if the input is the same we return the cached value
-const selectCategoryReducer = (state:any) : CategoriesState => state.categories;
+const selectCategoryReducer = (state:RootState) : CategoriesState => state.categories;
 
 
 export const selectCategories = createSelector(
