@@ -5,11 +5,11 @@ import CrownLogo from "../../assets/crown.svg";
 import {selectIsCartOpen} from "../../store/cart/cart.selector";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import "./navigation.styles.jsx";
-import { currentUserSelctor } from "../../store/user/user.selector.jsx";
+import { currentUserSelctor } from "../../store/user/user.selector";
 
-import { signOutStart } from "../../store/user/user.action.jsx";
+import { signOutStart } from "../../store/user/user.action";
 import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component";
-import { NavigationContainer, LogoContainer, NavLinksContainer, NavLink } from "./navigation.styles.jsx";
+import { NavigationContainer, LogoContainer, NavLinksContainer, NavLink } from "./navigation.styles";
 
 function Navigation() {
   // const { currentUser } = useContext(UserContext);\
