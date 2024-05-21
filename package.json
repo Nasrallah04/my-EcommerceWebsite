@@ -14,6 +14,7 @@
     "@stripe/stripe-js": "^3.4.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
+    "babel-plugin-macros": "^3.1.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.5.2",
     "react": "^18.2.0",
@@ -30,6 +31,7 @@
     "stripe": "^15.5.0",
     "styled-component": "^2.8.0",
     "styled-components": "^6.1.1",
+    "typed-redux-saga": "^1.5.0",
     "typescript": "^5.4.5",
     "uninstall": "^0.0.0"
   },
