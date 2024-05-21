@@ -25,6 +25,7 @@ export type ButtonProps = {
   children: React.ReactNode;
   buttonType?: BUTTON_TYPES_CLASSES;
   isLoading?: boolean
+  otherProps: React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const Button: FC<ButtonProps> = ({ children, buttonType,isLoading, ...otherProps }) => {

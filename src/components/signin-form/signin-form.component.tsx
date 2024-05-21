@@ -1,4 +1,6 @@
 import {  useState } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { FormEvent, ChangeEvent } from "react";
 import { useDispatch } from 'react-redux';
 import {emailSignInStart, googleSignInStart} from '../../store/user/user.action';
 
@@ -24,19 +26,19 @@ function Signin() {
     dispatch(googleSignInStart())
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       dispatch(emailSignInStart(email, password));
       restFormFields()
     } catch (error) {
-      if (error.code == 'auth/invalid-login-credentials'){
+      if ((error as AuthError).code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
         alert('Wrong credentials')
       }
     }
   };
 
-  const handelChange = (event) => {
+  const handelChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
