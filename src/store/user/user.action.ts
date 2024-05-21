@@ -1,6 +1,7 @@
 import { USER_ACTION_TYPES } from './user.types';
 import {createAction, withMacher, ActionTypeWithPayload, ActionType} from '../../utils/reducer/reducer.utils';
 import { UserData , AdditionalInformation } from '../../utils/firebase/firebase';
+import {User}  from 'firebase/auth';
 
 //Action type for user:
 export type SetCurrentUser = ActionTypeWithPayload<USER_ACTION_TYPES.SET_CURRENT_USER, UserData>
@@ -28,7 +29,7 @@ export const emailSignInStart = withMacher((email: string, password: string): Em
    return createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, {email, password})
  })
 
-export const signInSuccess = withMacher((user: UserData): SignInSuccess => {
+export const signInSuccess = withMacher((user: UserData & {id: string}): SignInSuccess => {
    return createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user)
 })
 
@@ -37,14 +38,14 @@ export const signInFailed = withMacher((error: Error): SignInFailed => {
 })
 
 export type SignUpStart = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_START, {email: string, password: string, displayName: string}> 
-export type SignUpSuccess = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth: UserData, additionalInformation: AdditionalInformation}>
+export type SignUpSuccess = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth: User, additionalInformation: AdditionalInformation}>
 export type SignUpFailed = ActionTypeWithPayload<USER_ACTION_TYPES.SIGN_UP_FAILED, Error>
 // Sign Up
 export const signUpStart = withMacher((email: string, password: string, displayName: string): SignUpStart => {
   return createAction(USER_ACTION_TYPES.SIGN_UP_START, {email, password, displayName})
 })
 
-export const signUpSuccess = withMacher((userAuth: UserData, additionalInformation: AdditionalInformation): SignUpSuccess => {
+export const signUpSuccess = withMacher((userAuth: User, additionalInformation: AdditionalInformation): SignUpSuccess => {
   return createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {userAuth, additionalInformation})
 })
 
