@@ -8,15 +8,16 @@ import {
 } from './button.styles';
 
 export enum BUTTON_TYPES_CLASSES {
+  SUBMIT = 'SUBMIT',
   base = 'base',
   google = 'google-sign-in',
   inverted = 'inverted',
-  SUBMIT = "SUBMIT",
 };
 
 const getButton = (buttonType = BUTTON_TYPES_CLASSES.base) : typeof BaseButton =>
   ({
     [BUTTON_TYPES_CLASSES.base]: BaseButton,
+    [BUTTON_TYPES_CLASSES.SUBMIT]: BaseButton,
     [BUTTON_TYPES_CLASSES.google]: GoogleSignInButton,
     [BUTTON_TYPES_CLASSES.inverted]: InvertedButton,
   } as Record<BUTTON_TYPES_CLASSES, typeof BaseButton>)[buttonType];
