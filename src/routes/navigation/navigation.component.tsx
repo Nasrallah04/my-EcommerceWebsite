@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
 import CrownLogo from "../../assets/crown.svg";
-
 import {selectIsCartOpen} from "../../store/cart/cart.selector";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import "./navigation.styles.jsx";
