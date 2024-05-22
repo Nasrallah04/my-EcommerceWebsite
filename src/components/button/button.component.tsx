@@ -21,12 +21,15 @@ const getButton = (buttonType = BUTTON_TYPES_CLASSES.base) : typeof BaseButton =
   } as Record<BUTTON_TYPES_CLASSES, typeof BaseButton>)[buttonType];
 
 
-export type ButtonProps = {
-  children: React.ReactNode;
-  buttonType?: BUTTON_TYPES_CLASSES;
-  isLoading?: boolean
-  otherProps: React.ButtonHTMLAttributes<HTMLButtonElement>
-}
+  export type ButtonProps = {
+    children: React.ReactNode;
+    type?: "button" | "submit" | "reset"; // Ensure type prop matches valid button types
+    buttonType?: BUTTON_TYPES_CLASSES;
+    isLoading?: boolean;
+    otherProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    onClick?: () => void; 
+  };
+  
 
 const Button: FC<ButtonProps> = ({ children, buttonType,isLoading, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
