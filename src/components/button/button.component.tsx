@@ -11,6 +11,7 @@ export enum BUTTON_TYPES_CLASSES {
   base = 'base',
   google = 'google-sign-in',
   inverted = 'inverted',
+  SUBMIT = "SUBMIT",
 };
 
 const getButton = (buttonType = BUTTON_TYPES_CLASSES.base) : typeof BaseButton =>
