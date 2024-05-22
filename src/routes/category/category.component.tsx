@@ -10,8 +10,12 @@ import ProductCard from '../../components/product-card/product-card.component';
 
 import { CategoryContainer, Title } from './category.styles';
 
+type CategoryParams = {
+  category: string;
+};
+
 const Category = () => {
-  const { category } = useParams();
+  const { category } = useParams<keyof CategoryParams>() as CategoryParams;
   // console.log("render/re-render Category component")
   const categoriesMap = useSelector(categoriesMapSelctor);
   const isLoading = useSelector(selectCategoriesIsLoading);
